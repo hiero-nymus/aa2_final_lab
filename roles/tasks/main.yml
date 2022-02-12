@@ -1,0 +1,8 @@
+---
+# tasks file for roles
+#
+#
+
+- name: start to subscribe hosts
+  include_role:
+    name: add_subscription.yml
