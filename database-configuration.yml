@@ -45,7 +45,7 @@
       command: dnf module enable -y postgresql:12
 
     - name: Installing PostgreSQL 12
-      command: dnf install -y @postgresql12
+      command: dnf install -y @postgresql:12
 
 #    - name: Install Postgres packages
 #      package:
