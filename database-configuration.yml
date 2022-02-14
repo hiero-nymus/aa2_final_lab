@@ -114,3 +114,10 @@
 
 
       become_user: "{{ postgres_user }}"
+
+  handlers:
+
+    - name: restart_postgres
+      service:
+        name: "{{ postgres_service }}"
+        state: restarted
