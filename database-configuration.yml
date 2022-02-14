@@ -32,6 +32,10 @@
         owner: flask
 
   tasks:
+    - name: Import a key from a URL
+      ansible.builtin.rpm_key:
+        state: present
+        key: "https://download.postgresql.org/pub/repos/yum/RPM-GPG-KEY-PGDG-12"
 
     - name: Install Postgres packages
       package:
