@@ -1,6 +1,6 @@
 ---
 - name: control
-  task:
+  tasks:
     - debug:
 
 - name: Servers configuration
