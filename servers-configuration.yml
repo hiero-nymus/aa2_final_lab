@@ -1,4 +1,8 @@
 ---
+- name: control
+  task:
+    - debug:
+
 - name: Servers configuration
   hosts: load_balancers,database_servers,app_servers
   gather_facts: true
