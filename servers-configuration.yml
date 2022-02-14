@@ -1,5 +1,5 @@
 ---
-- name: Manage OpenStack Servers
+- name: Configure DNS for OpenStack Servers
   hosts: control_node
   gather_facts: false
   become: false
@@ -14,6 +14,7 @@
   hosts: load_balancers,app_servers,database_servers
   become: true
   tasks:
+
     - name: Insert DNS IP
       command: >-
         nmcli connection modify "System eth0"
@@ -27,13 +28,10 @@
         name: NetworkManager
         state: restarted
 
-- name: Add subscription
-  hosts: load_balancers,app_servers,database_servers
+- name: Add Satellite subscription
+  hosts: load_balancers,database_servers,backend_servers
   gather_facts: true
   tasks:
-
-    - debug:
-        msg: "{{ hostvars['control'].ansible_default_ipv4.address }}, {{ hostvars['control'].ansible_dns.nameservers.0 }} "
 
     - name: install katello-ca-consumer package
       yum:
