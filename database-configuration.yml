@@ -52,11 +52,6 @@
       loop_control:
         loop_var: __package
 
-    - name: Install Python packages
-      pip:
-        name: "{{ postgres_library }}"
-        state: present
-
     - name: Check if Postgres initialized
       stat:
         path: "{{ postgres_10_data_dir }}/PG_VERSION"
