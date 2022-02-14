@@ -29,7 +29,7 @@
         state: restarted
 
 - name: Add Satellite subscription
-  hosts: load_balancers,database_servers,backend_servers
+  hosts: load_balancers,database_servers,app_servers
   gather_facts: true
   tasks:
 
