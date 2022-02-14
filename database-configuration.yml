@@ -42,10 +42,10 @@
         key: "https://download.postgresql.org/pub/repos/yum/RPM-GPG-KEY-PGDG-12"
    
     - name: Enable PostgreSQL 12 Module
-      command: dnf module enable postgresql:12
+      command: dnf module enable -y postgresql:12
 
     - name: Installing PostgreSQL 12
-      command: dnf install @postgresql12
+      command: dnf install -y @postgresql12
 
 #    - name: Install Postgres packages
 #      package:
