@@ -1,5 +1,5 @@
 ---
-- name: Deploy, configure, and populate Postgres 12
+- name: Deploy, configure, and populate Postgres 10
   hosts: database_servers
   become: true
   gather_facts: false
@@ -8,6 +8,7 @@
   vars:
     #postgres_rhel7_repo: "https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
     postgres_rhel8_repo: "https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
+    pip_package: python3-pip
     postgres_packages:
       - postgresql 
       - postgresql-server 
@@ -15,9 +16,9 @@
     #  - postgresql12-libs
     #  - postgresql12-devel
     postgres_library: python-psycopg2
-    postgres_12_data_dir: /var/lib/pgsql/12/data
-    postgres_12_bin_path: /usr/pgsql-12/bin
-    postgres_service: postgresql-12.service
+    postgres_10_data_dir: /var/lib/pgsql/10/data
+    postgres_10_bin_path: /usr/pgsql-10/bin
+    postgres_service: postgresql-10.service
     postgres_port: 5432
     postgres_user: postgres
     postgres_users:
@@ -33,6 +34,11 @@
         owner: flask
 
   tasks:
+    - name: Installing python pip
+      dnf:
+        name: "{{ pip_package }}"
+        state: present
+
     - name: Import a key from a URL
       ansible.builtin.rpm_key:
         state: present
@@ -56,23 +62,23 @@
 
     - name: Check if Postgres initialized
       stat:
-        path: "{{ postgres_12_data_dir }}/PG_VERSION"
+        path: "{{ postgres_10_data_dir }}/PG_VERSION"
       register: r_postgres_init_dir_state
 
     - when: not r_postgres_init_dir_state.stat.exists
       name: Run Postgres initdb to initialize if postgres not initialized
-      command: "{{ postgres_12_bin_path }}/postgresql-12-setup initdb"
+      command: "{{ postgres_10_bin_path }}/postgresql-12-setup initdb"
       notify: restart_postgres
 
     - name: Setup Postgres for remote password auth
       template:
         src: templates/pg_hba.conf.j2
-        dest: "{{ postgres_12_data_dir }}/pg_hba.conf"
+        dest: "{{ postgres_10_data_dir }}/pg_hba.conf"
       notify: restart_postgres
 
     - name: Setup Postgres to listen on network interfaces
       lineinfile:
-        dest: "{{ postgres_12_data_dir }}/postgresql.conf"
+        dest: "{{ postgres_10_data_dir }}/postgresql.conf"
         line: "listen_addresses = '*'"
         insertafter: "#listen_addresses"
       notify: restart_postgres
