@@ -9,12 +9,11 @@
     #postgres_rhel7_repo: "https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
     postgres_rhel8_repo: "https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
     postgres_packages:
-      - postgresql12 
+      - postgresql 
       - postgresql-server 
       - postgresql-contrib 
       - postgresql12-libs
       - postgresql12-devel
-      - postgresql12-plpython
     postgres_library: python-psycopg2
     postgres_12_data_dir: /var/lib/pgsql/12/data
     postgres_12_bin_path: /usr/pgsql-12/bin
@@ -46,9 +45,14 @@
       loop: 
         - "{{ postgres_rhel8_repo }}"        
         - "{{ postgres_packages }}"
-        - "{{ postgres_library }}"
+    #    - "{{ postgres_library }}"
       loop_control:
         loop_var: __package
+
+    - name: Install Python packages
+      pip:
+        name: "{{ postgres_library }}"
+        state: present
 
     - name: Check if Postgres initialized
       stat:
