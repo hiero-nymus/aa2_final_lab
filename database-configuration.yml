@@ -19,7 +19,7 @@
     postgres_library: python3-psycopg2
     postgres_12_data_dir: /var/lib/pgsql
     postgres_12_bin_path: /usr/bin
-    postgres_service: postgresql-12.service
+    postgres_service: postgresql.service
     postgres_port: 5432
     postgres_user: postgres
     postgres_users:
@@ -65,7 +65,7 @@
 
     - when: not r_postgres_init_dir_state.stat.exists
       name: Run Postgres initdb to initialize if postgres not initialized
-      command: "{{ postgres_12_bin_path }}/postgresql-12-setup initdb"
+      command: "{{ postgres_12_bin_path }}/postgresql-setup initdb"
       notify: restart_postgres
 
     - name: Setup Postgres for remote password auth
