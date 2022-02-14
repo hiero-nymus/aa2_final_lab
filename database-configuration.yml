@@ -47,16 +47,16 @@
     - name: Installing PostgreSQL 12
       command: dnf install -y @postgresql:12
 
-    - name: Install Postgres packages
-      package:
-        name: "{{ __package }}"
-        state: present
-      loop: 
-#        - "{{ postgres_rhel8_repo }}"        
-        - "{{ postgres_packages }}"
-#        - "{{ postgres_library }}"
-      loop_control:
-        loop_var: __package
+#     - name: Install Postgres packages
+#       package:
+#         name: "{{ __package }}"
+#         state: present
+#       loop: 
+# #        - "{{ postgres_rhel8_repo }}"        
+#         - "{{ postgres_packages }}"
+# #        - "{{ postgres_library }}"
+#       loop_control:
+#         loop_var: __package
 
     - name: Check if Postgres initialized
       stat:
