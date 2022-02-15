@@ -44,8 +44,7 @@
   debug:
     msg: " postgres: {{ r_postgres_init_dir_state }}"
 
-- when: not r_postgres_init_dir_state.stat.exists
-  name: Run Postgres initdb to initialize if postgres not initialized
+- name: Run Postgres initdb to initialize if postgres not initialized
   command: "{{ postgres_12_bin_path }}/postgresql-setup initdb"
   notify: restart_postgres
 
