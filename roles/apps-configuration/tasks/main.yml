@@ -4,11 +4,19 @@
   lineinfile:
     state: present
     path: /etc/hosts
-    line: "{{ hostvars[_host].ansible_host }} appdb{{ loop_index }}"
+    line: "{{ hostvars[_host].ansible_host }} appdb1"
   loop: "{{ groups['database_servers'] }}"
   loop_control:
     loop_var: _host
-    index_var: loop_index
+
+- name: Add frontend node to /etc/hosts file
+  lineinfile:
+    state: present
+    path: /etc/hosts
+    line: "{{ hostvars[_hahost].ansible_host }} frontend1"
+  loop: "{{ groups['load_balancers'] }}"
+  loop_control:
+    loop_var: _hahost
 
 - name: Create flask user
   user:
