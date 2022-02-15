@@ -12,8 +12,8 @@
 - name: Installing PostgreSQL 12
   command: dnf install -y @postgresql:12
 
+- name: Check if Postgres initialized
   stat:
-    #path: "{{ postgres_12_data_dir }}/PG_VERSION"
     path: "{{ postgres_12_data_dir }}"
   register: r_postgres_init_dir_state
 
