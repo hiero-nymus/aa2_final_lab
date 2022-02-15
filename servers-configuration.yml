@@ -12,4 +12,14 @@
 
     - servers-configuration
 
-...
+- hosts: control
+  tasks:
+
+    - name: Adding frontend into hosts
+      lineinfile:
+        state: present
+        path: /etc/hosts
+        line: "{{ hostvars[_fronthost].ansible_host }} frontend1"
+  loop: "{{ groups['load_balancers'] }}"
+  loop_control:
+    loop_var: _fronthost

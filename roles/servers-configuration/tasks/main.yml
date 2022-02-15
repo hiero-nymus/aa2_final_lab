@@ -5,34 +5,6 @@
   debug:
     msg: "{{ hostvars['control'].ansible_default_ipv4.address }}, {{ hostvars['control'].ansible_dns.nameservers.0 }} "
 
-- name: Add DB node to /etc/hosts file
-  lineinfile:
-    state: present
-    path: /etc/hosts
-    line: "{{ hostvars[_host].ansible_host }} appdb1"
-  loop: "{{ groups['database_servers'] }}"
-  loop_control:
-    loop_var: _host
-
-- name: Add frontend node to /etc/hosts file
-  lineinfile:
-    state: present
-    path: /etc/hosts
-    line: "{{ hostvars[_hahost].ansible_host }} frontend1"
-  loop: "{{ groups['load_balancers'] }}"
-  loop_control:
-    loop_var: _hahost
-
-- name: Add apps node to /etc/hosts file
-  lineinfile:
-    state: present
-    path: /etc/hosts
-    line: "{{ hostvars[_appshost].ansible_host }} frontend1{{ loop_index }}"
-  loop: "{{ groups['app_servers'] }}"
-  loop_control:
-    loop_var: _appshost
-    index_var: loop_index
-
 - name: Insert DNS IP
   command: >-
     nmcli connection modify "System eth0"
