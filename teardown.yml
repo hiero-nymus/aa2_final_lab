@@ -4,12 +4,14 @@
   become: true
   gather_facts: false
   vars:
-    postgres_rhel7_repo:  pgdg-redhat-repo-42.0-11.noarch
+    postgres_rhel8_repo:  pgdg-redhat-repo-42.0-23.noarch
     postgres_packages:
-      - postgresql12-devel
+      - postgresql12
+      - postgresql12-server
       - postgresql12-libs
+      - postgresql12-contrib
     postgres_library: "python3-psycopg2"
-    postgres_10_data_dir: /var/lib/pgsql/data
+    postgres_12_data_dir: /var/lib/pgsql/12/data
     postgres_port: 5432
 
   tasks:
@@ -19,18 +21,15 @@
         name: "{{ __package }}"
         state: absent
       loop: 
-        #- "{{ postgres_rhel7_repo }}"        
+        - "{{ postgres_rhel8_repo }}"        
         - "{{ postgres_library }}"
         - "{{ postgres_packages }}"
       loop_control:
         loop_var: __package
     
-    - name: remove PostgreSQL 12 Module
-      command: dnf remove -y @postgresql:12
-
     - name: Remove Postgres 12 data directory
       file:
-        path: /var/lib/pgsql
+        path: "{{ postgres_12_data_dir }}"
         state: absent
 
     - name: Remove Postgres user
