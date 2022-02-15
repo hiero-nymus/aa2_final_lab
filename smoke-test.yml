@@ -25,20 +25,20 @@
           - "group db: {{ groups.database_servers[0] }}"
           - "group apps: {{ groups.app_servers[0] }}"
 
-# - name: End to end smoke tests
-#   hosts: app_servers
-#   become: false
-#   gather_facts: false
-#   tags:
-#     - smoketest  
-#   tasks:
-#  
-#     - name: Check webserver for correct response
-#       uri:
-#         url: "http://frontend1/ping"
-#         return_content: yes
-#       until: '"alive" in result.content'
-#       retries: 10
-#       delay: 1
-#       register: result
-#       delegate_to: localhost
+- name: End to end smoke tests
+  hosts: app_servers
+  become: false
+  gather_facts: false
+  tags:
+    - smoketest  
+  tasks:
+ 
+    - name: Check webserver for correct response
+      uri:
+        url: "http://frontend1/ping"
+        return_content: yes
+      until: '"alive" in result.content'
+      retries: 10
+      delay: 1
+      register: result
+      delegate_to: localhost
