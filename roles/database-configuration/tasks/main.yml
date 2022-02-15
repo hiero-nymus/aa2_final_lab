@@ -45,7 +45,7 @@
     msg: " postgres: {{ r_postgres_init_dir_state }}"
 
 - name: Run Postgres initdb to initialize if postgres not initialized
-  command: "{{ postgres_12_bin_path }}/postgresql-setup initdb"
+  command: "{{ postgres_12_bin_path }}/postgresql-12-setup initdb"
   notify: restart_postgres
 
 - name: Setup Postgres for remote password auth
