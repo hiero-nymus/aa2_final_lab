@@ -1,0 +1,37 @@
+---
+- name: Deploy, configure, and populate Postgres 12
+  hosts: database_servers
+  become: true
+  gather_facts: false
+  tags:
+    - database_servers
+
+  vars:
+    postgres_rhel8_repo: "https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
+    postgresql_module: "postgresql:12"
+    postgres_packages:
+      - postgresql12-libs
+      - postgresql12-devel
+    postgres_library: python3-psycopg2
+    postgres_12_data_dir: /var/lib/pgsql/data
+    postgres_12_bin_path: /usr/bin
+    postgres_service: postgresql.service
+    postgres_port: 5432
+    postgres_user: postgres
+    postgres_users:
+      - name: flask
+        password: redhat
+        database: flask_db
+        state: present
+        priv: ALL
+    postgres_databases:
+      - name: flask_db
+        owner: flask
+      - name: books_store
+        owner: flask
+
+  roles:
+
+    - database-configuration
+
+...

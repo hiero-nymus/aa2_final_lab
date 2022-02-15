@@ -1,0 +1,7 @@
+---
+# handlers file for roles/database_configuration
+
+- name: restart_postgres
+  service:
+    name: "{{ postgres_service }}"
+    state: restarted
