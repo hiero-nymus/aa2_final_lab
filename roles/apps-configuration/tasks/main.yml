@@ -1,5 +1,15 @@
 ---
 
+- name: Add DB node to /etc/hosts file
+  lineinfile:
+    state: present
+    path: /etc/hosts
+    line: "{{ hostvars[_host].ansible_host }} appdb{{ loop_index }}"
+  loop: "{{ groups['database_servers'] }}"
+  loop_control:
+    loop_var: _host
+    index_var: loop_index
+
 - name: Create flask user
   user:
     name: "{{ flask_user }}"
