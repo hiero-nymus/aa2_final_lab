@@ -13,7 +13,7 @@
     baseurl: "{{ postgres_rhel8_repo }}"
 
 - name: Disable PostgreSQL Module
-  command: dnf module disable -y postgresql
+  command: yum module disable postgresql
 
 - name: Install Postgres packages
   package:
