@@ -16,17 +16,17 @@
     name: Postgres
     description: Add PostgreSQL12 repository
     baseurl: "{{ postgres_rhel8_repo }}"
-  when: not r_postgres_init_dir_state.exists
+  when: not r_postgres_init_dir_state.stat.exists
 
 - name: Disable PostgreSQL Module
   command: dnf -qy module disable postgresql
-  when: not r_postgres_init_dir_state.exists
+  when: not r_postgres_init_dir_state.stat.exists
 
 - name: Install PostgreSQL 12 packages
   dnf:
     name: postgresql12
     state: present
-  when: not r_postgres_init_dir_state.exists
+  when: not r_postgres_init_dir_state.stat.exists
 
 - name: Install Postgres Servers Packages
   package:
@@ -37,7 +37,7 @@
     - "{{ postgres_library }}"
   loop_control:
     loop_var: __package
-  when: not r_postgres_init_dir_state.exists
+  when: not r_postgres_init_dir_state.stat.exists
 
 
 - name: debugging postgres initialization
