@@ -6,11 +6,23 @@
     state: present
     key: "https://download.postgresql.org/pub/repos/yum/RPM-GPG-KEY-PGDG-12"
 
-- name: Enable PostgreSQL 12 Module
-  command: dnf module enable -y postgresql:12
+- name: Add repository
+  ansible.builtin.yum_repository:
+    name: Postgres
+    baseurl: "{{ postgres_rhel8_repo }}"
 
-- name: Installing PostgreSQL 12
-  command: dnf install -y @postgresql:12
+- name: Disable PostgreSQL Module
+  command: dnf module disable -y postgresql
+
+- name: Install Postgres packages
+  package:
+    name: "{{ __package }}"
+    state: present
+  loop:
+    - "{{ postgres_packages }}"
+    - "{{ postgres_library }}"
+  loop_control:
+    loop_var: __package
 
 - name: Check if Postgres initialized
   stat:
