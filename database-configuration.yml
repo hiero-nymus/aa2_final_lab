@@ -7,7 +7,8 @@
     - database_servers
 
   vars:
-    postgres_rhel8_repo: "https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
+    #postgres_rhel8_repo: "https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
+    postgres_rhel8_repo: "https://download.postgresql.org/pub/repos/yum/12/redhat/rhel-8-x86_64/postgresql12-12.5-1PGDG.rhel8.x86_64.rpm"
     postgresql_module: "postgresql:12"
     postgres_packages:
       - postgresql12
