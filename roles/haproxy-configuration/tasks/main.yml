@@ -17,11 +17,3 @@
     name: haproxy
     state: started
     enabled: true
-
- handlers:
-
-    - name: restart_haproxy
-      service:
-        name: haproxy
-        state: restarted
-
