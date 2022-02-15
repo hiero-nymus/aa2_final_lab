@@ -9,6 +9,7 @@
 - name: Add repository
   ansible.builtin.yum_repository:
     name: Postgres
+    description: Add PostgreSQL12 repository
     baseurl: "{{ postgres_rhel8_repo }}"
 
 - name: Disable PostgreSQL Module
