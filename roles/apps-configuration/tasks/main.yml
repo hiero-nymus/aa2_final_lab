@@ -27,6 +27,7 @@
   loop_control:
     loop_var: _hahost
   delegate_to: localhost
+  become: true
 
 - name: Create flask user
   user:
