@@ -33,10 +33,6 @@
     - smoketest  
   tasks:
 
-    - name: debugging
-      debug:
-        msg: "localhost : {{ localhost }}"
-
     - name: Check webserver for correct response
       uri:
         url: "http://frontend1/ping"
@@ -46,3 +42,10 @@
       delay: 1
       register: result
       delegate_to: localhost
+
+    - name: debugging
+      debug:
+        msg:
+          - "status: {{ result.status }}"
+          - "content: {{ result.content }}"
+          - "url: {{ result.url }}"
