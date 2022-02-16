@@ -32,6 +32,11 @@
     - name: testing
       command: hostname
       delegate_to: localhost
+      register: myresult
+
+    - name: debug
+      debug:
+        msg: "result: {{ myresult.stdout }}"
 
     - name: Check webserver for correct response
       uri:
