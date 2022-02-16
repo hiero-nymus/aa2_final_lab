@@ -12,7 +12,7 @@
 
     - servers-configuration
 
-- hosts: tower1
+- hosts: towers
   tasks:
 
     - name: Adding frontend into hosts
