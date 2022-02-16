@@ -25,8 +25,8 @@
 
   roles:
 
-      # Start creation server only if system are RHEL 8.x
-    - openstack_manage_servers
+    - name: Start creation server only if system are RHEL 8.x
+      role: openstack_manage_servers
       when:
         - ansible_facts['distribution'] == "RedHat"
         - ansible_facts['distribution_major_version'] == "8"
