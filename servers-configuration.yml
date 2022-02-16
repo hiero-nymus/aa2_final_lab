@@ -12,7 +12,7 @@
 
     - servers-configuration
 
-- hosts: control
+- hosts: tower1
   tasks:
 
     - name: Adding frontend into hosts
@@ -23,5 +23,3 @@
       loop: "{{ groups['load_balancers'] }}"
       loop_control:
         loop_var: _fronthost
-      delegate_to: localhost
-      become: yes
