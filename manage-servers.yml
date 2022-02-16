@@ -1,13 +1,17 @@
 ---
 - name: Manage OpenStack Servers
   hosts: control_node
-  gather_facts: false
+  #gather_facts: false
   become: false
   collections:
     - gpte.openstack
 
   roles:
 
-    - openstack_manage_servers
+    - name: Start creation server only if system are RHEL 8.x
+      role: openstack_manage_servers
+      when:
+        - ansible_facts['distribution'] == "RedHat"
+        - ansible_facts['distribution_major_version'] == "8"
 
 ...
