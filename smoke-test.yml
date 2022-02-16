@@ -42,6 +42,7 @@
       delay: 1
       register: result
       delegate_to: localhost
+      ignore_errors: yes
 
     - name: debugging
       debug:
