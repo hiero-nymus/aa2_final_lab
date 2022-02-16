@@ -6,23 +6,6 @@
   collections:
     - gpte.openstack
 
-#   tasks:
-#     - name: debug
-#       debug:
-#         msg:
-#           - "distri : {{ ansible_facts['distribution'] | lower }}"
-#           - "distri2 : {{ ansible_facts['distribution']  }}"
-#           - "ditri ver: {{ ansible_facts['distribution_major_version'] }}"
-# 
-#     - name: debug
-#       debug:
-#         msg:
-#           - "all is find!"
-#       when: 
-#         - ansible_facts['distribution'] == "RedHat"
-#         - ansible_facts['distribution_major_version'] == "8"
-# 
-
   roles:
 
     - name: Start creation server only if system are RHEL 8.x

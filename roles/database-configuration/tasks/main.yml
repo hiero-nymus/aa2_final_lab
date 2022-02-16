@@ -1,10 +1,6 @@
 ---
 # tasks file for roles/database_configuration
 #
-#- name: Import a key from a URL
-#  ansible.builtin.rpm_key:
-#    state: present
-#    key: "https://download.postgresql.org/pub/repos/yum/RPM-GPG-KEY-PGDG-12"
 
 - name: Check if Postgres initialized
   stat:
@@ -13,13 +9,6 @@
 
 - name: Add repository
   command: dnf -y install "{{ postgres_rhel8_repo }}"
-
-#- name: Add repository
-#  ansible.builtin.yum_repository:
-#    name: Postgres
-#    description: Add PostgreSQL12 repository
-#    baseurl: "{{ postgres_rhel8_repo }}"
-#  when: not r_postgres_init_dir_state.stat.exists
 
 - name: Disable PostgreSQL Module
   command: dnf -qy module disable postgresql
