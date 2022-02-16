@@ -32,7 +32,11 @@
   tags:
     - smoketest  
   tasks:
- 
+
+    - name: debugging
+      debug:
+        msg: "localhost : {{ localhost }}"
+
     - name: Check webserver for correct response
       uri:
         url: "http://frontend1/ping"
