@@ -6,8 +6,19 @@
   collections:
     - gpte.openstack
 
-  roles:
+  vars: 
+    distribution: '{{ ansible_distribution | lower }}'
+    distribution_version: '{{ ansible_distribution_version }}'
 
-    - openstack_manage_servers
+  tasks:
+    - name: debug
+      debug:
+        msg:
+          - "distr: {{ distribution }}"
+          - "distri version: {{ distribution_version }}"
+
+  #roles:
+
+  #  - openstack_manage_servers
 
 ...

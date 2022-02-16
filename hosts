@@ -13,5 +13,8 @@ load_balancers
 app_servers
 database_servers
 
+[tower1]
+tower1.example.com
+
 [all:vars]
 GUID="{{ lookup('env', 'GUID') }}"
