@@ -19,11 +19,6 @@
       run_once: true
       tags:
         - smoketest
-    - name: debugging
-      debug:
-        msg:
-          - "group db: {{ groups.database_servers[0] }}"
-          - "group apps: {{ groups.app_servers[0] }}"
 
 - name: End to end smoke tests
   hosts: app_servers
@@ -32,6 +27,11 @@
   tags:
     - smoketest  
   tasks:
+
+
+    - name: testing
+      command: hostname
+      delegate_to: localhost
 
     - name: Check webserver for correct response
       uri:
@@ -42,11 +42,3 @@
       delay: 1
       register: result
       delegate_to: localhost
-      ignore_errors: yes
-
-    - name: debugging
-      debug:
-        msg:
-          - "status: {{ result.status }}"
-          - "content: {{ result.content }}"
-          - "url: {{ result.url }}"
